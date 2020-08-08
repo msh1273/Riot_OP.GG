@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API연습</title>
+</head>
+
+<body>
+    <h1>op.gg CloneTest</h1>
+    <input id="search" value="" type="text">
+    <button id="btn_search" type="submit" onclick="summonerLookUp();">검색</button>
+<hr>
+    <pre></pre>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script>
+
+function summonerLookUp(){
+var summonername = $("#search").val();
+var api_key = "RGAPI-602c4925-cd5a-4a0f-9b21-60ad6d1a27b0";
+
+    $.ajax({
+        method: "GET",
+        url: "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +summonername+ "?api_key=" + api_key,
+        dataType: "json"
+    }).done(function (msg) {
+    console.log(msg);
+    var summonerID = msg.id;
+    var datenum = parseInt(msg.revisionDate);
+    var date = new Date(datenum);
+    var dateString = date.toString();
+    detailsummoner(summonerID);
+    $("pre").html("<strong>" + "소환사명: " + "</strong>" + msg.name  + "\n");
+    $("pre").append("<strong>" + "레벨: " + "</strong>" + msg.summonerLevel + "\n");
+    $("pre").append("<strong>" + "최근 접속일: " +  "</strong>" + dateString + "\n\n");
+})
+};
+function detailsummoner(summonerID){
+    var api_key = "RGAPI-602c4925-cd5a-4a0f-9b21-60ad6d1a27b0";
+    $.ajax({
+        method: "GET",
+        url: "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" +summonerID+"?api_key=" + api_key,
+        dataType: "json"
+    }).done(function (msg){
+        console.log(msg);
+        $("pre").append("<strong>" + msg[0].queueType +  "</strong>" + "\n");
+        $("pre").append("<strong>" + "티어: " +  "</strong>" + msg[0].tier + "\n");
+        $("pre").append("<strong>" + "랭크: " +  "</strong>" + msg[0].rank + "\n");
+        $("pre").append("<strong>" + "리그포인트: " +  "</strong>" + msg[0].leaguePoints+ "\n\n");
+
+        $("pre").append("<strong>" + msg[1].queueType +  "</strong>" + "\n");
+        $("pre").append("<strong>" + "티어: " +  "</strong>" + msg[1].tier + "\n");
+        $("pre").append("<strong>" + "랭크: " +  "</strong>" + msg[1].rank + "\n");
+        $("pre").append("<strong>" + "리그포인트: " +  "</strong>" + msg[1].leaguePoints);
+    })
+}
+
+</script>
+
+</html>
