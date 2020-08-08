@@ -23,7 +23,7 @@ integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="ano
 
 function summonerLookUp(){
 var summonername = $("#search").val();
-var api_key = "RGAPI-602c4925-cd5a-4a0f-9b21-60ad6d1a27b0";
+var api_key = "";
 
     $.ajax({
         method: "GET",
@@ -42,7 +42,7 @@ var api_key = "RGAPI-602c4925-cd5a-4a0f-9b21-60ad6d1a27b0";
 })
 };
 function detailsummoner(summonerID){
-    var api_key = "RGAPI-602c4925-cd5a-4a0f-9b21-60ad6d1a27b0";
+    var api_key = "";
     $.ajax({
         method: "GET",
         url: "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" +summonerID+"?api_key=" + api_key,
