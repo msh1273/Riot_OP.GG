@@ -1,6 +1,6 @@
 
 
-var api_key = "RGAPI-b688f351-01ed-4b5c-ba62-107822733b53";
+var api_key = "";
 function summonerLookUp(){
 var summonername = $("#search").val();
 
